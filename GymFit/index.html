@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>GymFit - Acompanhamento de Treinos e Desafios</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo" id="logoLink">
+                <img src="assets/images/logo.png" alt="GymFit Logo">
+                <h1>GymFit</h1>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu">
+                <li><a href="#criar-treino" class="nav-link">Criar Treino</a></li>
+                <li><a href="#meus-desafios" class="nav-link">Meus Desafios</a></li>
+                <li><a href="#perfil" class="nav-link">Meu Perfil</a></li>
+            </ul>
+
+            <div class="theme-toggle-wrapper">
+                <div class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" class="theme-toggle-input">
+                    <label for="theme-toggle" class="theme-toggle-label">
+                        <span class="theme-toggle-inner">
+                            <i class="bi bi-moon-fill"></i>
+                            <i class="bi bi-sun-fill"></i>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="auth-buttons" id="auth-buttons">
+                <button id="btnLoginHeader" class="btn-login">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Entrar
+                </button>
+                <button id="btnCadastroHeader" class="btn-cadastro">
+                    <i class="bi bi-person-plus"></i>
+                    Cadastrar
+                </button>
+            </div>
+
+            <div class="user-info" id="user-info" style="display: none;">
+                <span id="user-name"></span>
+                <button id="btnLogout" class="btn-login">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Sair
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Página Inicial -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h2>Transforme seu corpo, supere seus limites</h2>
+                <p>Acompanhe seus treinos e participe de desafios motivadores.</p>
+            </div>
+
+            <div class="destaques card">
+                <h3 class="card-title">Desafios em Destaque</h3>
+                <div class="desafios-grid grid">
+                    <div class="desafio-card card">
+                        <h4 class="card-title">Corrida Matinal</h4>
+                        <p>Correr 5km todas as manhãs.</p>
+                        <div class="progresso-bar-container">
+                            <div class="progresso-bar" data-progress="60" style="width: 60%;"></div>
+                        </div>
+                        <p>Progresso: 60%</p>
+                        <button class="btn btn-sm btn-primary">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Login -->
+        <section id="login" class="page">
+            <div class="form-container card">
+                <h2 class="section-title">Entrar</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginSenha">Senha</label>
+                        <input type="password" id="loginSenha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Página de Cadastro -->
+        <section id="cadastro" class="page">
+            <div class="form-container card">
+                <h2 class="section-title">Criar Conta</h2>
+                <form id="cadastroForm">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="objetivo">Objetivo Principal</label>
+                        <select id="objetivo" required>
+                            <option value="">Selecione um objetivo</option>
+                            <option value="emagrecimento">Emagrecimento</option>
+                            <option value="hipertrofia">Ganho de Massa Muscular</option>
+                            <option value="resistencia">Resistência</option>
+                            <option value="saude">Saúde e Bem-estar</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Página de Criar Treino -->
+        <section id="criar-treino" class="page">
+            <div class="treinos-header">
+                <h2 class="section-title">Meus Treinos</h2>
+                <button id="btnCriarTreino" class="btn btn-primary">Criar Novo Treino</button>
+            </div>
+
+            <div class="treinos-container">
+                <div id="form-criar-treino" class="form-container card" style="display: none;">
+                    <h3 class="card-title">Criar Novo Treino</h3>
+                    <form id="treino-form">
+                        <div class="form-group">
+                            <label for="nomeTreino">Nome do Treino</label>
+                            <input type="text" id="nomeTreino" required placeholder="Ex: Treino A - Superiores">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipoTreino">Tipo de Treino</label>
+                            <select id="tipoTreino" required>
+                                <option value="">Selecione o tipo</option>
+                                <option value="musculacao">Musculação</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="funcional">Funcional</option>
+                                <option value="hiit">HIIT</option>
+                                <option value="yoga">Yoga</option>
+                                <option value="pilates">Pilates</option>
+                                <option value="crossfit">CrossFit</option>
+                            </select>
+                        </div>
+                        <div id="exercicios-container" class="card">
+                            <h3 class="card-title">Exercícios</h3>
+                            <div class="exercicios-lista">
+                                <!-- Template para novos exercícios -->
+                                <template id="exercicio-template">
+                                    <div class="exercicio-item">
+                                        <div class="exercicio-header">
+                                            <h4>Exercício <span class="exercicio-numero"></span></h4>
+                                            <button type="button" class="btn-remove-exercicio" aria-label="Remover exercício">&times;</button>
+                                        </div>
+                                        <div class="exercicio-fields">
+                                            <div class="form-group">
+                                                <label>Nome do Exercício</label>
+                                                <input type="text" class="exercicio-nome" placeholder="Ex: Supino Reto" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Séries</label>
+                                                <input type="number" class="exercicio-series" min="1" placeholder="Ex: 3" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Repetições</label>
+                                                <input type="number" class="exercicio-repeticoes" min="1" placeholder="Ex: 12" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Peso (kg)</label>
+                                                <input type="number" class="exercicio-peso" min="0" step="0.5" placeholder="Ex: 20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="addExercicio">
+                                <i class="bi bi-plus-circle"></i>
+                                Adicionar Exercício
+                            </button>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">Salvar Treino</button>
+                            <button type="button" class="btn btn-secondary" id="btnCancelarTreino">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="treinos-filtro">
+                    <div class="filtro-grupo">
+                        <label for="filtroTipo">Filtrar por tipo</label>
+                        <select id="filtroTipo">
+                            <option value="todos">Todos os tipos</option>
+                            <option value="musculacao">Musculação</option>
+                            <option value="cardio">Cardio</option>
+                            <option value="funcional">Funcional</option>
+                            <option value="hiit">HIIT</option>
+                            <option value="yoga">Yoga</option>
+                            <option value="pilates">Pilates</option>
+                            <option value="crossfit">CrossFit</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="pesquisaTreino">Pesquisar treino</label>
+                        <div class="search-container">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" id="pesquisaTreino" class="search-input" placeholder="Digite para pesquisar...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="treinos-grid">
+                    <div id="lista-treinos" class="grid">
+                        <!-- Treinos serão inseridos dinamicamente via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página Meus Desafios -->
+        <section id="meus-desafios" class="page">
+            <div class="desafios-header">
+                <h2 class="section-title">Meus Desafios</h2>
+                <button id="btnCriarDesafio" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>
+                    Criar Novo Desafio
+                </button>
+            </div>
+
+            <div class="desafios-container">
+                <div id="form-criar-desafio" class="form-container card" style="display: none;">
+                    <h3 class="card-title">Criar Novo Desafio</h3>
+                    <form id="desafio-form">
+                        <div class="form-group">
+                            <label for="tituloDesafio">Título do Desafio</label>
+                            <input type="text" id="tituloDesafio" required placeholder="Ex: 30 Dias de Corrida">
+                        </div>
+                        <div class="form-group">
+                            <label for="descricaoDesafio">Descrição</label>
+                            <textarea id="descricaoDesafio" required placeholder="Descreva seu desafio"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="metaDesafio">Meta (número)</label>
+                            <input type="number" id="metaDesafio" required min="1" placeholder="Ex: 30">
+                        </div>
+                        <div class="form-group">
+                            <label for="unidadeDesafio">Unidade da Meta</label>
+                            <select id="unidadeDesafio" required>
+                                <option value="dias">Dias</option>
+                                <option value="repeticoes">Repetições</option>
+                                <option value="series">Séries</option>
+                                <option value="km">Quilômetros</option>
+                                <option value="minutos">Minutos</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">Criar Desafio</button>
+                            <button type="button" class="btn btn-secondary" id="btnCancelarDesafio">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="desafios-filtros">
+                    <div class="filtro-grupo">
+                        <label for="filtroStatus">Status</label>
+                        <select id="filtroStatus">
+                            <option value="todos">Todos</option>
+                            <option value="ativos">Ativos</option>
+                            <option value="concluidos">Concluídos</option>
+                            <option value="pendentes">Pendentes</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtroUnidade">Tipo de Meta</label>
+                        <select id="filtroUnidade">
+                            <option value="todos">Todos</option>
+                            <option value="dias">Dias</option>
+                            <option value="repeticoes">Repetições</option>
+                            <option value="series">Séries</option>
+                            <option value="km">Quilômetros</option>
+                            <option value="minutos">Minutos</option>
+                        </select>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="pesquisaDesafio">Pesquisar</label>
+                        <input type="text" id="pesquisaDesafio" placeholder="Digite para pesquisar...">
+                    </div>
+                </div>
+
+                <!-- Template para desafios -->
+                    <template id="desafio-template">
+                        <div class="desafio-card">
+                            <div class="desafio-header">
+                                <h4></h4>
+                                <span class="desafio-tipo"></span>
+                            </div>
+                            <div class="desafio-descricao"></div>
+                            <div class="desafio-meta">
+                                <span class="desafio-meta-valor"></span>
+                                <span class="desafio-meta-unidade"></span>
+                            </div>
+                            <div class="desafio-progresso">
+                                <div class="progresso-info">
+                                    <span>Progresso</span>
+                                    <span class="progresso-valor">0%</span>
+                                </div>
+                                <div class="progresso-bar-container">
+                                    <div class="progresso-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="desafio-actions">
+                                <button class="btn btn-primary btn-atualizar-progresso">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Atualizar Progresso
+                                </button>
+                                <button class="btn btn-secondary btn-detalhes-desafio">
+                                    <i class="bi bi-info-circle"></i>
+                                    Detalhes
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Lista de desafios ativos -->
+                    <div id="lista-desafios-ativos" class="desafios-grid">
+                        <!-- Desafios ativos serão inseridos via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página Meu Perfil -->
+        <section id="perfil" class="page">
+            <div class="container">
+                <div class="perfil-header">
+                    <h2 class="section-title">Meu Perfil</h2>
+                    <button id="btnEditarPerfil" class="btn btn-primary">Editar Perfil</button>
+                </div>
+                
+                <div class="perfil-grid">
+                    <div class="info-pessoal-card card">
+                        <h3 class="card-title">Informações Pessoais</h3>
+                        <div class="perfil-info">
+                            <div class="info-group">
+                                <label>Nome</label>
+                                <p id="perfil-nome"></p>
+                            </div>
+                            <div class="info-group">
+                                <label>E-mail</label>
+                                <p id="perfil-email"></p>
+                            </div>
+                            <div class="info-group">
+                                <label>Objetivo</label>
+                                <p id="perfil-objetivo"></p>
+                            </div>
+                            <div class="info-group">
+                                <label>Membro desde</label>
+                                <p id="perfil-data-cadastro"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card-container card">
+                        <h3 class="card-title">Minhas Estatísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">🏆</div>
+                                <h4>Desafios Completados</h4>
+                                <p data-stat="desafios-completados">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">📋</div>
+                                <h4>Treinos Criados</h4>
+                                <p data-stat="treinos-criados">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🎯</div>
+                                <h4>Desafios Ativos</h4>
+                                <p data-stat="desafios-ativos">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">⭐</div>
+                                <h4>Pontos de Experiência</h4>
+                                <p data-stat="pontos-experiencia">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="atividades-recentes-card card">
+                        <h3 class="card-title">Últimas Atividades</h3>
+                        <div class="atividades-lista" id="ultimas-atividades">
+                            <!-- Atividades serão inseridas via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo-footer">
+                        <img src="assets/images/logo.png" alt="GymFit Logo" class="footer-logo">
+                        <p>&copy; 2025 GymFit - Todos os direitos reservados.</p>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/rafa_rubia7" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-instagram"></i>
+                            <span>Rafael</span>
+                        </a>
+                        <a href="https://www.instagram.com/monteiro.livs" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-instagram"></i>
+                            <span>Lívia</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/app.js"></script>
+</body>
+</html> 
