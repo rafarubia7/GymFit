@@ -124,12 +124,12 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👥 Autores
 
-- Seu Nome - [GitHub](https://github.com/seu-usuario)
+- Rafael Rubiá Oliveira Cardoso - [GitHub](https://github.com/rafarubia7)
 
 ## 📞 Suporte
 
-- Email: seu-email@exemplo.com
-- Issues: https://github.com/seu-usuario/gymfit/issues
+- Email: rafaelrubia62@gmail.com
+- Issues: https://github.com/rafarubia7/gymfit/issues
 
 ## 🙏 Agradecimentos
 
